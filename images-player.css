@@ -1,4 +1,34 @@
 :host {
   display: block;
-  color: red;
+  width: 700px;
+  height: 220px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+core-pages {
+  height: 100%;
+  width:100%;
+}
+
+::content > a {
+  display: block;
+  transform: translateX(-700px);
+  transition: all 1.4s ease;
+  opacity: 0;
+}
+
+::content > a.core-selected + a{
+  transform: translateX(300px);
+  opacity: 0;
+}
+
+::content > a.begin{
+  transform: translateX(300px);
+  opacity: 0;
+}
+
+::content > a.core-selected {
+  transform: translateX(0);
+  opacity: 1;
 }

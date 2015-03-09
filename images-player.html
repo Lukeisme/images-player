@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-pages/core-pages.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -15,19 +16,20 @@ Element providing solution to no problem in particular.
 <polymer-element name="images-player" attributes="author fancy">
   <template>
     <link rel="stylesheet" href="images-player.css">
-    <h1>Hello from images-player</h1>
-    <content></content>
+    <core-pages selected="{{selected}}" on-tap="{{toNext}}">
+      <content id="content"></content>
+    </core-pages>
   </template>
   <script>
     Polymer({
       /**
-       * The `author` attribute sets an initial author
+       * The `selected` attribute sets an initial page index
        *
-       * @attribute author
-       * @type string
-       * @default 'Dimitri Glazkov'
+       * @attribute selected
+       * @type int
+       * @default 0
        */
-      author: 'Dimitri Glazkov',
+      selected: 0,
 
       /**
        * `fancy` is a property that does something fancy.
@@ -38,10 +40,32 @@ Element providing solution to no problem in particular.
        */
       fancy: false,
 
+      _contentNodes: {},
+
       ready: function () {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+        this._contentNodes = this._getATagNodes();
+      },
+
+      _getATagNodes: function(){
+        var tmpArr = [];
+        this.$.content.getDistributedNodes().array().forEach(function(item){
+          if(item.tagName == 'A')
+            tmpArr.push(item);
+        });
+        return tmpArr;
+      },
+
+      toNext:function(){
+        this.changeIndex((this.selected + 1) % this._contentNodes.length);
+      },
+
+      changeIndex:function(index){
+        this.selected = index;
+        if(index == this._contentNodes.length-1){
+          this._contentNodes[0].classList.add('begin');
+        }else{
+          this._contentNodes[0].classList.remove('begin');
+        }
       },
 
       /**
