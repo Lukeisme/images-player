@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../core-pages/core-pages.html">
+<link rel="import" href="../core-selector/core-selector.html">
 
 <!--
 Element providing solution to no problem in particular.
@@ -13,12 +14,21 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://Lukeisme.github.io/images-player
 -->
-<polymer-element name="images-player" attributes="author fancy">
+<polymer-element name="images-player">
   <template>
     <link rel="stylesheet" href="images-player.css">
-    <core-pages selected="{{selected}}" on-tap="{{toNext}}">
+    <core-pages selected="{{selected}}">
       <content id="content"></content>
     </core-pages>
+    <span class="prev-btn" on-tap="{{toPrev}}">&lt;</span><span class="next-btn" on-tap="{{toNext}}">&gt;</span>
+
+    <div id="dot-wrap">
+      <core-selector selected="{{selected}}">
+        <template repeat="{{_contentNodes}}">
+          <span class="dot"></span>
+        </template>
+      </core-selector>
+    </div>
   </template>
   <script>
     Polymer({
@@ -31,30 +41,43 @@ Element providing solution to no problem in particular.
        */
       selected: 0,
 
-      _contentNodes: {},
+      _contentNodes: [],
 
       ready: function () {
         this._contentNodes = this._getATagNodes();
+        this._autoPlay();
       },
 
-      _getATagNodes: function(){
+      _autoPlay: function(){
+        this.async(function() {
+          this.toNext();
+          this._autoPlay();
+        }, null, 6000);
+      },
+
+      _getATagNodes: function () {
         var tmpArr = [];
-        this.$.content.getDistributedNodes().array().forEach(function(item){
-          if(item.tagName == 'A')
+        this.$.content.getDistributedNodes().array().forEach(function (item) {
+          if (item.tagName == 'A')
             tmpArr.push(item);
         });
         return tmpArr;
       },
 
-      toNext:function(){
+      toPrev: function () {
+        var prevIndex = this.selected - 1 < 0 ? this._contentNodes.length - 1 : this.selected - 1;
+        this.changeIndex(prevIndex);
+      },
+
+      toNext: function () {
         this.changeIndex((this.selected + 1) % this._contentNodes.length);
       },
 
-      changeIndex:function(index){
+      changeIndex: function (index) {
         this.selected = index;
-        if(index == this._contentNodes.length-1){
+        if (index == this._contentNodes.length - 1) {
           this._contentNodes[0].classList.add('begin');
-        }else{
+        } else {
           this._contentNodes[0].classList.remove('begin');
         }
       }
