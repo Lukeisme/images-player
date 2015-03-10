@@ -31,15 +31,6 @@ Element providing solution to no problem in particular.
        */
       selected: 0,
 
-      /**
-       * `fancy` is a property that does something fancy.
-       *
-       * @property fancy
-       * @type bool
-       * @default false
-       */
-      fancy: false,
-
       _contentNodes: {},
 
       ready: function () {
@@ -66,37 +57,6 @@ Element providing solution to no problem in particular.
         }else{
           this._contentNodes[0].classList.remove('begin');
         }
-      },
-
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function (greeting) {
-        var response = greeting || 'Hello World!';
-        return 'images-player says, ' + response;
-      },
-
-      /**
-       * The `images-player-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event images-player-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
-
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function () {
-        this.fire('images-player-lasers-success', { sound: 'Pew pew pew!' });
       }
     });
   </script>
