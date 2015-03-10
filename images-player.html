@@ -14,12 +14,13 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage http://Lukeisme.github.io/images-player
 -->
-<polymer-element name="images-player">
+<polymer-element name="images-player" on-tap="{{tapHandler}}">
   <template>
     <link rel="stylesheet" href="images-player.css">
     <core-pages selected="{{selected}}">
       <content id="content"></content>
     </core-pages>
+
     <span class="prev-btn" on-tap="{{toPrev}}">&lt;</span><span class="next-btn" on-tap="{{toNext}}">&gt;</span>
 
     <div id="dot-wrap">
@@ -43,13 +44,15 @@ Element providing solution to no problem in particular.
 
       _contentNodes: [],
 
+      playTimer: 0,
+
       ready: function () {
         this._contentNodes = this._getATagNodes();
         this._autoPlay();
       },
 
       _autoPlay: function(){
-        this.async(function() {
+        this.playTimer = this.async(function() {
           this.toNext();
           this._autoPlay();
         }, null, 6000);
@@ -80,6 +83,10 @@ Element providing solution to no problem in particular.
         } else {
           this._contentNodes[0].classList.remove('begin');
         }
+      },
+      tapHandler: function(){
+        clearTimeout(this.playTimer);
+        this._autoPlay();
       }
     });
   </script>
