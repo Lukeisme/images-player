@@ -3,18 +3,25 @@
 <link rel="import" href="../core-selector/core-selector.html">
 
 <!--
-Element providing solution to no problem in particular.
+banner images display.
 
 ##### Example
 
-    <images-player></images-player>
+    <images-player>
+      <a><img src="http://i1.douguo.net/upload/banners/1425868945.jpg"/></a>
+      <a><img src="http://i1.douguo.net/upload/banners/1425456043.jpg"/></a>
+      <a><img src="http://i1.douguo.net/upload/banners/1425551758.png"/></a>
+      <a><img src="http://i1.douguo.net/upload/banners/1425548680.jpg"/></a>
+    </images-player>
 
 @element images-player
-@blurb Element providing solution to no problem in particular.
+@blurb banner images display.
 @status alpha
 @homepage http://Lukeisme.github.io/images-player
 -->
-<polymer-element name="images-player" on-tap="{{tapHandler}}">
+<polymer-element name="images-player"
+                 attributes="selected"
+                 on-tap="{{tapHandler}}">
   <template>
     <link rel="stylesheet" href="images-player.css">
     <core-pages selected="{{selected}}">
