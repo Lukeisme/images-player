@@ -65,14 +65,12 @@ core-pages {
 
 #dot-wrap {
   position: relative;
-  height: 16px;
-  width: 100px;
+  width: 78px;
   margin: 0 auto;
   top: -26px;
   border-radius: 10px;
   background-color: #000000;
   text-align: center;
-  line-height: 16px;
   opacity: 0.5;
 }
 
