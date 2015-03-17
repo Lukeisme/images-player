@@ -6,6 +6,7 @@
   overflow: hidden;
   border: 1px solid #cccccc;
   position: relative;
+  z-index: 1;
 }
 
 core-pages {
