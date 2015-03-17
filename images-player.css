@@ -17,22 +17,18 @@ core-pages {
   display: block;
   transform: translateX(-700px);
   transition: all 1.4s ease;
-  opacity: 0;
 }
 
 ::content > a.core-selected + a {
-  transform: translateX(200px);
-  opacity: 0;
+  transform: translateX(700px);
 }
 
 ::content > a.begin {
-  transform: translateX(200px);
-  opacity: 0;
+  transform: translateX(700px);
 }
 
 ::content > a.core-selected {
   transform: translateX(0);
-  opacity: 1;
 }
 
 .prev-btn, .next-btn {
@@ -70,6 +66,8 @@ core-pages {
   top: -26px;
   border-radius: 10px;
   background-color: #000000;
+  font-size: 0;
+  padding: 2px 0;
   text-align: center;
   opacity: 0.5;
 }
